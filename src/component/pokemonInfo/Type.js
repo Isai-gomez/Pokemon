@@ -3,7 +3,7 @@ import React from 'react';
 const Type = (props) => {
     return (
         <div>
-            <label> Tipo { props.type}</label>
+            <label> Tipo: <strong>{ props.type}</strong></label>
         </div>
     );
 };

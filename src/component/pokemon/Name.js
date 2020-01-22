@@ -2,7 +2,7 @@ import React from 'react';
 
 const Name = (props) => {
     return(
-        <label>{props.name}</label>
+        <label>Nombre: <strong>{props.name}</strong></label>
     )
 }
 export default Name;
