@@ -3,7 +3,7 @@ import React from 'react';
 const Number = (props) => {
     return (
         <div>
-            <label>{props.number}</label>
+            <label>Numero {props.number}</label>
         </div>
     );
 };
