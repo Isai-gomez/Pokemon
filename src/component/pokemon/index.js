@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
+import Forms from './Forms';
 import { Row, Card, Col, Container } from 'react-bootstrap';
-import PokemonInfo from '../pokemonInfo';
+import PokemonInfo from './pokemonInfo';
 import Name from './Name';
 import pokemon from '../../img/pokemon.jpg';
 
@@ -39,21 +40,26 @@ class Pokemon extends Component {
     render(){
         const { name, type, number, photo } = this.state;
         return(
-            <Container> 
-                <Row>
+            <Container>
+                <Row style={{marginTop:"3em"}}>
                     <Col>
                         <Card bg="secondary" text="white">
                             <Card.Header>POKEMON</Card.Header>
                         </Card>                    
                     </Col>
                 </Row>
-                <Row>
+                <Row style={{marginTop:"3em"}}>
+                    <Col md={3}>
+                        <Forms></Forms>
+                    </Col> 
+                
+                
                     <Col xs={12} md={4}>
-                        <Card style={{width: "20em"}}>
+                        <Card style={{width: "15em"}}>
                                 <Card.Img variant="top" src={photo}/>
                             </Card>               
                     </Col>
-                    <Col xs={12} md={8}>
+                    <Col xs={12} md={5}>
                         <Card bg="ligth">
                             <Card.Header>
                                 <Name name={ name }></Name>
