@@ -1,9 +1,9 @@
 import React, { Component } from 'react';
 import Forms from './Forms';
-import { Row, Card, Col, Container } from 'react-bootstrap';
+import { Row, Card, Col, Container, Alert } from 'react-bootstrap';
 import PokemonInfo from './pokemonInfo';
 import Name from './Name';
-// import pokemon from '../../img/pokemon.jpg';
+
 
 
 class Pokemon extends Component {
@@ -68,7 +68,10 @@ class Pokemon extends Component {
                         </Card.Body>          
                     </Card>
                 </Col>
-            </Row> : "Cargando...");
+            </Row>:
+            <Alert variant="success">
+                <Alert.Heading>Cargando..</Alert.Heading>
+            </Alert>);
         }
         return(
             <Container>
