@@ -3,42 +3,73 @@ import Forms from './Forms';
 import { Row, Card, Col, Container } from 'react-bootstrap';
 import PokemonInfo from './pokemonInfo';
 import Name from './Name';
-import pokemon from '../../img/pokemon.jpg';
+// import pokemon from '../../img/pokemon.jpg';
 
 
 class Pokemon extends Component {
     constructor(){
         super();
         this.state = {
-            name:"Pikachu",
-            type:"Electrico",
-            number: 25,
-            photo:pokemon,
+          data: null,
+
         }
     }
+   
+    
     componentDidMount(){
-        this.handleUpdate();
+       this.handleUpdate();
     }
-    getUrlPokemo = number => {
+    getUrlPokemo = ( number = 25 ) => {
         const api_pokemon = `https://pokeapi.co/api/v2/pokemon/${number}`;
         return (api_pokemon);
     }
-    handleUpdate = () => {
-        const api_pokemon = this.getUrlPokemo(34);
+    handleUpdate = ( number )=> {
+        const api_pokemon = this.getUrlPokemo(number);
         fetch(api_pokemon)
             .then( resolve =>{
                 return resolve.json()
             })
             .then(data => {
+               
                this.setState({
+                   data:{
                    name:data.species.name.toUpperCase(),
                    photo:data.sprites.front_shiny,
+                   number:data.id,
+                   type:data.types[0].type.name.toUpperCase(),
+                   }
                })
             });
                 
     }     
     render(){
-        const { name, type, number, photo } = this.state;
+        const { data } = this.state;
+        const knowValue = ( data ) => {
+            return(
+                (data) ? 
+                <Row>
+                <Col md={5}>
+                    <Card style={{width: "15em"}}>
+                        <Card.Img variant="top" src={data.photo}/>
+                     </Card>               
+                </Col> 
+                <Col xs={12} md={7}>
+                    <Card bg="ligth">
+                        <Card.Header>
+                            <Name name={ data.name }></Name>
+                        </Card.Header>
+                        <Card.Body>
+                            <Card.Text>
+                                <PokemonInfo
+                                    type={ data.type }
+                                    number={ data.number }>
+                                </PokemonInfo> 
+                            </Card.Text>
+                        </Card.Body>          
+                    </Card>
+                </Col>
+            </Row> : "Cargando...");
+        }
         return(
             <Container>
                 <Row style={{marginTop:"3em"}}>
@@ -49,36 +80,18 @@ class Pokemon extends Component {
                     </Col>
                 </Row>
                 <Row style={{marginTop:"3em"}}>
-                    <Col md={3}>
-                        <Forms></Forms>
-                    </Col> 
-                
-                
-                    <Col xs={12} md={4}>
-                        <Card style={{width: "15em"}}>
-                                <Card.Img variant="top" src={photo}/>
-                            </Card>               
+                    <Col md={5}>
+                        <Forms handleUpdate={this.handleUpdate}></Forms>
                     </Col>
-                    <Col xs={12} md={5}>
-                        <Card bg="ligth">
-                            <Card.Header>
-                                <Name name={ name }></Name>
-                            </Card.Header>
-                            <Card.Body>
-                                <Card.Text>
-                                    <PokemonInfo
-                                    type={ type }
-                                    number={ number }>
-                                    </PokemonInfo> 
-                                </Card.Text>
-                            </Card.Body>          
-                        </Card>          
+                    <Col> 
+                    {knowValue(data)}
                     </Col>
                 </Row>
             </Container>
         )
     }
 }
+                                 
 
                             
 export default Pokemon;
