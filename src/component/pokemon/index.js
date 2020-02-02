@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import Forms from './Forms';
-import { Row, Card, Col, Container, Alert } from 'react-bootstrap';
+import { Row, Card, Col, Container, Spinner } from 'react-bootstrap';
 import PokemonInfo from './pokemonInfo';
 import Name from './Name';
 
@@ -69,9 +69,7 @@ class Pokemon extends Component {
                     </Card>
                 </Col>
             </Row>:
-            <Alert variant="success">
-                <Alert.Heading>Cargando..</Alert.Heading>
-            </Alert>);
+            <Spinner animation="grow"/>);
         }
         return(
             <Container>
